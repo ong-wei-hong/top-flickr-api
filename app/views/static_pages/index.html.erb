@@ -1,0 +1,20 @@
+<h1>Flickr image search</h1>
+
+<%= simple_form_for :search, url: root_path, method: 'GET' do |f| %>
+  <%= f.input :username, required: false %>
+  <%= f.button :submit, 'Search' %>
+<% end %>
+
+<br /><br />
+
+<% if @username %>
+  <% if @user_not_found %>
+    <h3>User not found</h3>
+  <% elsif @photos.any? %>
+    <% @photos.each do |photo| %>
+      <img src="https://live.staticflickr.com/<%= photo.server %>/<%= photo.id %>_<%= photo.secret %>_q.jpg">
+    <% end %>
+  <% else %>
+    <h3>User has no public photos</h3>
+  <% end %>
+<% end %>
